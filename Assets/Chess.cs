@@ -16,7 +16,7 @@ public class Chess : MonoBehaviour
         
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         int gridSize = 8;
         Gizmos.color = Color.black;
