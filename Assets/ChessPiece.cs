@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChessPiece : MonoBehaviour
 {
-    [SerializeField] public enum PieceType
+    public enum PieceType
     {
         Pawn,
         Knight,
@@ -13,20 +13,44 @@ public class ChessPiece : MonoBehaviour
         Queen,
         King
     }
+
+    [SerializeField] PieceType pieceType;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public Texture chessTexture;
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawGUITexture(new Rect(0,0,1,1), chessTexture);
+        switch (pieceType)
+        {
+            case PieceType.Pawn:
+                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                break;
+            case PieceType.Knight:
+                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                break;
+            case PieceType.Bishop:
+                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                break;
+            case PieceType.Rook:
+                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                break;
+            case PieceType.Queen:
+                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                break;
+            case PieceType.King:
+                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                break;
+            default:
+                break;
+        }
     }
 }
