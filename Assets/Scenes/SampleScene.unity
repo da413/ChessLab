@@ -335,9 +335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69a301f835b0604384578cd3f78e0bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceType: 5
+  pieceType: 4
   tintColor: {r: 1, g: 1, b: 1, a: 1}
-  pieceTexture: {fileID: 2800000, guid: a62a28271fabd484ba2771b07201eead, type: 3}
+  pieceTexture: {fileID: 2800000, guid: 6b86ddcfbfb23894591b54c12e2cabd0, type: 3}
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,9 +350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69a301f835b0604384578cd3f78e0bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceType: 0
+  pieceType: 5
   tintColor: {r: 1, g: 1, b: 1, a: 1}
-  pieceTexture: {fileID: 2800000, guid: 1a9ab63141c318d4d809b5fc1ddf4302, type: 3}
+  pieceTexture: {fileID: 2800000, guid: a62a28271fabd484ba2771b07201eead, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
