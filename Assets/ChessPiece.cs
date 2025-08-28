@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,67 +19,68 @@ public class ChessPiece : MonoBehaviour
 {
     public PieceType pieceType;
     public Color tintColor = Color.white;
-    public Texture2D pieceTexture;
-    private void OnValidate()
-    {
-        pieceTexture = Resources.Load<Texture2D>($"PieceImages/{pieceType}");
-    }
     private void OnDrawGizmos()
     {
-        Handles.BeginGUI();
-        Color oldColor = GUI.color;
-        GUI.color = tintColor;
-        GUI.DrawTexture(new Rect(0, 0, 100, 100), pieceTexture);
-        GUI.color = oldColor;
-        Handles.EndGUI();
+        UnityEngine.Vector3 piecePos = transform.position;
+        String pieceTexture = pieceType.ToString() + ".png";
+        Gizmos.DrawIcon(new UnityEngine.Vector3(piecePos.x, piecePos.y, 0), pieceTexture, true, tintColor);
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = tintColor;
+        UnityEngine.Vector3 piecePos = transform.position;
 
         switch (pieceType)
         {
             case PieceType.Pawn:
-                DrawPawnMoves();
+                DrawPawnMoves(piecePos);
                 break;
             case PieceType.Knight:
-                DrawKnightsMoves();
+                DrawKnightsMoves(piecePos);
                 break;
             case PieceType.Bishop:
-                DrawDiagonalMoves();
+                DrawDiagonalMoves(piecePos);
                 break;
             case PieceType.Rook:
-                DrawStraightMoves();
+                DrawStraightMoves(piecePos);
                 break;
             case PieceType.Queen:
-                DrawDiagonalMoves();
-                DrawStraightMoves();
+                DrawDiagonalMoves(piecePos);
+                DrawStraightMoves(piecePos);
                 break;
             case PieceType.King:
-                DrawKingsMoves();
+                DrawKingsMoves(piecePos);
                 break;
             default:
                 break;
         }
     }
-    private void DrawKingsMoves()
+    private void DrawKingsMoves(UnityEngine.Vector3 piecePos)
     {
-
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 1, piecePos.y, 0), new UnityEngine.Vector3(piecePos.x + 1, piecePos.y, 0));
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x, piecePos.y - 1, 0), new UnityEngine.Vector3(piecePos.x, piecePos.y + 1, 0));
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 1, piecePos.y - 1, 0), new UnityEngine.Vector3(piecePos.x + 1, piecePos.y + 1, 0));
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x + 1, piecePos.y - 1, 0), new UnityEngine.Vector3(piecePos.x - 1, piecePos.y + 1, 0));
     }
-    private void DrawKnightsMoves()
+    private void DrawKnightsMoves(UnityEngine.Vector3 piecePos)
     {
-
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 1, piecePos.y + 2, 0), new UnityEngine.Vector3(piecePos.x + 1, piecePos.y - 2, 0));
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 1, piecePos.y - 2, 0), new UnityEngine.Vector3(piecePos.x + 1, piecePos.y + 2, 0));
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 2, piecePos.y + 1, 0), new UnityEngine.Vector3(piecePos.x + 2, piecePos.y - 1, 0));
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 2, piecePos.y - 1, 0), new UnityEngine.Vector3(piecePos.x + 2, piecePos.y + 1, 0));
     }
-    private void DrawStraightMoves()
+    private void DrawStraightMoves(UnityEngine.Vector3 piecePos)
     {
-
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 8, piecePos.y, 0), new UnityEngine.Vector3(piecePos.x + 8, piecePos.y, 0));
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x, piecePos.y - 8, 0), new UnityEngine.Vector3(piecePos.x, piecePos.y + 8, 0));
     }
-    private void DrawDiagonalMoves()
+    private void DrawDiagonalMoves(UnityEngine.Vector3 piecePos)
     {
-
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 8, piecePos.y - 8, 0), new UnityEngine.Vector3(piecePos.x + 8, piecePos.y + 8, 0));
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x + 8, piecePos.y - 8, 0), new UnityEngine.Vector3(piecePos.x - 8, piecePos.y + 8, 0));
     }
-    private void DrawPawnMoves()
+    private void DrawPawnMoves(UnityEngine.Vector3 piecePos)
     {
-
+        Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x, piecePos.y, 0), new UnityEngine.Vector3(piecePos.x, piecePos.y + 2, 0));
     }
 }
