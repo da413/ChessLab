@@ -19,6 +19,8 @@ public class ChessPiece : MonoBehaviour
 {
     public PieceType pieceType;
     public Color tintColor = Color.white;
+
+    #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         UnityEngine.Vector3 piecePos = transform.position;
@@ -55,6 +57,18 @@ public class ChessPiece : MonoBehaviour
                 break;
         }
     }
+
+    [CustomEditor(typeof(ChessPiece))]
+    public class ChessPieceEditor : Editor
+    {
+        void OnSceneGUI()
+        {
+            var linkedObject = target as ChessPiece;
+            Handles.color = linkedObject.tintColor;
+            Handles.DrawWireDisc(linkedObject.transform.position, linkedObject.transform.forward, 0.5f);
+        }
+    }
+    #endif
     private void DrawKingsMoves(UnityEngine.Vector3 piecePos)
     {
         Gizmos.DrawLine(new UnityEngine.Vector3(piecePos.x - 1, piecePos.y, 0), new UnityEngine.Vector3(piecePos.x + 1, piecePos.y, 0));
