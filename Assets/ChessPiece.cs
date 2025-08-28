@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class ChessPiece : MonoBehaviour
-{
-    public enum PieceType
+public enum PieceType
     {
         Pawn,
         Knight,
@@ -14,43 +13,71 @@ public class ChessPiece : MonoBehaviour
         King
     }
 
-    [SerializeField] PieceType pieceType;
-    // Start is called before the first frame update
-    void Start()
+public class ChessPiece : MonoBehaviour
+{
+    public PieceType pieceType;
+    public Color tintColor = Color.white;
+    public Texture2D pieceTexture;
+    private void OnValidate()
     {
-
+        pieceTexture = Resources.Load<Texture2D>($"PieceImages/{pieceType}");
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnDrawGizmos()
     {
-
+        Handles.BeginGUI();
+        Color oldColor = GUI.color;
+        GUI.color = tintColor;
+        GUI.DrawTexture(new Rect(0, 0, 100, 100), pieceTexture);
+        GUI.color = oldColor;
+        Handles.EndGUI();
     }
-    public Texture chessTexture;
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.red;
+
         switch (pieceType)
         {
             case PieceType.Pawn:
-                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                DrawPawnMoves();
                 break;
             case PieceType.Knight:
-                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                DrawKnightsMoves();
                 break;
             case PieceType.Bishop:
-                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                DrawDiagonalMoves();
                 break;
             case PieceType.Rook:
-                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                DrawStraightMoves();
                 break;
             case PieceType.Queen:
-                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                DrawDiagonalMoves();
+                DrawStraightMoves();
                 break;
             case PieceType.King:
-                Gizmos.DrawGUITexture(new Rect(0, 0, 1, 1), chessTexture);
+                DrawKingsMoves();
                 break;
             default:
                 break;
         }
+    }
+    private void DrawKingsMoves()
+    {
+
+    }
+    private void DrawKnightsMoves()
+    {
+
+    }
+    private void DrawStraightMoves()
+    {
+
+    }
+    private void DrawDiagonalMoves()
+    {
+
+    }
+    private void DrawPawnMoves()
+    {
+
     }
 }
